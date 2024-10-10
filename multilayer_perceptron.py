@@ -71,18 +71,9 @@ class MultilayerPerceptron:
             self.biases[i] -= self.learning_rate * np.mean(deltas[i], axis=0, keepdims=True)
 
     def fit(self, X, y):
-        """
-        Train the Multilayer Perceptron using forward and backward propagation.
-        
-        Parameters:
-        X (numpy.ndarray): Training data, shape (n_samples, n_features).
-        y (numpy.ndarray): True labels, shape (n_samples,).
-        
-        Perform multiple iterations of forward and backward propagation to adjust the weights.
-        """
-        # Loop through the training process for `n_iterations`.
-        # For each iteration, perform forward propagation and then backpropagation to adjust weights.
-        pass
+        for _ in range(self.n_iterations):
+            activations = self._forward_propagation(X)
+            self._backward_propagation(X, y, activations)
 
     def predict(self, X):
         """
