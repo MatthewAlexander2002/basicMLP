@@ -76,30 +76,11 @@ class MultilayerPerceptron:
             self._backward_propagation(X, y, activations)
 
     def predict(self, X):
-        """
-        Make predictions using the trained MLP.
-        
-        Parameters:
-        X (numpy.ndarray): Data to predict, shape (n_samples, n_features).
-        
-        Returns:
-        numpy.ndarray: Predicted class labels (or probabilities, depending on output layer).
-        
-        Perform forward propagation and return the output of the final layer.
-        """
-        # Perform a forward pass and return the predicted class labels.
-        pass
+        activations = self._forward_propagation(X)
+        return activations[-1]
 
     def _loss(self, y_true, y_pred):
-        """
-        Calculate the loss function (e.g., cross-entropy loss or MSE).
-        
-        Parameters:
-        y_true (numpy.ndarray): True labels.
-        y_pred (numpy.ndarray): Predicted labels or probabilities.
-        
-        Returns:
-        float: Loss value.
-        """
-        # Implement the loss function (cross-entropy for classification, MSE for regression).
-        pass
+        epsilon = 1e-15  # To avoid log(0)
+        y_pred = np.clip(y_pred, epsilon, 1 - epsilon)
+        loss = -np.mean(y_true * np.log(y_pred) + (1 - y_true) * np.log(1 - y_pred))
+        return loss
