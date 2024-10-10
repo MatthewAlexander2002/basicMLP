@@ -1,18 +1,21 @@
+import numpy as np
+
 class MultilayerPerceptron:
     def __init__(self, layer_sizes, learning_rate=0.01, n_iterations=1000):
-        """
-        Initialize the Multilayer Perceptron (MLP) with specified layer sizes, learning rate, and iterations.
-        
-        Parameters:
-        layer_sizes (list of int): Sizes of each layer, including input, hidden, and output layers.
-        learning_rate (float): The step size for weight updates.
-        n_iterations (int): The number of times to iterate over the training data.
-        
-        Initialize weights and biases for each layer.
-        """
         # Initialize learning rate, iterations, and layer sizes.
         # Initialize weights and biases for each layer randomly (use small values).
-        pass
+        self.layer_sizes = layer_sizes
+        self.learning_rate = learning_rate
+        self.n_iterations = n_iterations
+
+        # Initialize weights and biases
+        self.weights = []
+        self.biases = []
+        for i in range(len(layer_sizes) - 1):
+            weight = np.random.randn(layer_sizes[i], layer_sizes[i + 1]) * 0.01
+            bias = np.zeros((1, layer_sizes[i + 1]))
+            self.weights.append(weight)
+            self.biases.append(bias)
 
     def _initialize_weights(self, layer_sizes):
         """
