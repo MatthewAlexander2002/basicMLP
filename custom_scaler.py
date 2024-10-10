@@ -1,3 +1,5 @@
+import numpy as np
+
 class CustomScaler:
         def fit(self, X):
             self.mean_ = np.mean(X, axis=0)
