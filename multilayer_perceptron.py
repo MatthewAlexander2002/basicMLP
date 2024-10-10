@@ -18,18 +18,13 @@ class MultilayerPerceptron:
             self.biases.append(bias)
 
     def _initialize_weights(self, layer_sizes):
-        """
-        Initialize the weights and biases for the MLP layers.
-        
-        Parameters:
-        layer_sizes (list of int): Number of neurons in each layer (input, hidden, output).
-        
-        Initialize weights and biases as lists of numpy arrays where:
-        - Weights between layer `i` and `i+1` are of shape (layer_sizes[i], layer_sizes[i+1])
-        - Biases for layer `i+1` are of shape (layer_sizes[i+1],)
-        """
-        # Randomly initialize weights and biases for each layer.
-        pass
+        self.weights = []
+        self.biases = []
+        for i in range(len(layer_sizes) - 1):
+            weight = np.random.randn(layer_sizes[i], layer_sizes[i + 1]) * 0.01
+            bias = np.zeros((1, layer_sizes[i + 1]))
+            self.weights.append(weight)
+            self.biases.append(bias)
 
     def _activation_function(self, z, activation="sigmoid"):
         """
@@ -43,7 +38,6 @@ class MultilayerPerceptron:
         numpy.ndarray: Activated output.
         """
         # Implement the sigmoid or ReLU activation function based on the parameter `activation`.
-        pass
 
     def _activation_derivative(self, z, activation="sigmoid"):
         """
