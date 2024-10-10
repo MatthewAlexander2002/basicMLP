@@ -27,31 +27,21 @@ class MultilayerPerceptron:
             self.biases.append(bias)
 
     def _activation_function(self, z, activation="sigmoid"):
-        """
-        Apply activation function (e.g., sigmoid or ReLU) to the input z.
-        
-        Parameters:
-        z (numpy.ndarray): Linear combination of inputs and weights (pre-activation).
-        activation (str): The type of activation function to apply ("sigmoid", "relu").
-        
-        Returns:
-        numpy.ndarray: Activated output.
-        """
-        # Implement the sigmoid or ReLU activation function based on the parameter `activation`.
+        if activation == "sigmoid":
+            return 1 / (1 + np.exp(-z))
+        elif activation == "relu":
+            return np.maximum(0, z)
+        else:
+            raise ValueError("Unsupported activation function")
 
     def _activation_derivative(self, z, activation="sigmoid"):
-        """
-        Compute the derivative of the activation function for backpropagation.
-        
-        Parameters:
-        z (numpy.ndarray): Linear combination of inputs and weights (pre-activation).
-        activation (str): The type of activation function to compute the derivative for ("sigmoid", "relu").
-        
-        Returns:
-        numpy.ndarray: The derivative of the activation function with respect to z.
-        """
-        # Implement the derivative of the activation function for backpropagation.
-        pass
+        if activation == "sigmoid":
+            sig = 1 / (1 + np.exp(-z))
+            return sig * (1 - sig)
+        elif activation == "relu":
+            return np.where(z > 0, 1, 0)
+        else:
+            raise ValueError("Unsupported activation function")
 
     def _forward_propagation(self, X):
         """
