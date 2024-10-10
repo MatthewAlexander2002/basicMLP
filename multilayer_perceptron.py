@@ -44,34 +44,31 @@ class MultilayerPerceptron:
             raise ValueError("Unsupported activation function")
 
     def _forward_propagation(self, X):
-        """
-        Perform forward propagation through the network.
-        
-        Parameters:
-        X (numpy.ndarray): Input data, shape (n_samples, n_features).
-        
-        Returns:
-        list: A list of activations for each layer, including input and output.
-        """
-        # Perform the forward pass through each layer, calculating the linear combination
-        # and applying the activation function. Store activations for backpropagation.
-        pass
+        activations = [X]
+        input = X
+
+        for i in range(len(self.weights)):
+            z = np.dot(input, self.weights[i]) + self.biases[i]
+            input = self._activation_function(z)
+            activations.append(input)
+
+        return activations
 
     def _backward_propagation(self, X, y, activations):
-        """
-        Perform backward propagation to calculate gradients and update weights.
+        m = y.shape[0]
+        deltas = [None] * len(self.weights)
         
-        Parameters:
-        X (numpy.ndarray): Input data, shape (n_samples, n_features).
-        y (numpy.ndarray): True labels.
-        activations (list): List of activations from each layer during forward propagation.
+        # Compute the delta for the output layer
+        deltas[-1] = activations[-1] - y.reshape(-1, 1)
         
-        Update the weights and biases based on the gradients computed from backpropagation.
-        """
-        # Compute the error at the output layer and propagate it backward
-        # through the network to compute gradients for each weight and bias.
-        # Update the weights and biases using the learning rate.
-        pass
+        # Compute the deltas for the hidden layers
+        for i in reversed(range(len(deltas) - 1)):
+            deltas[i] = np.dot(deltas[i + 1], self.weights[i + 1].T) * self._activation_derivative(activations[i + 1])
+        
+        # Update the weights and biases
+        for i in range(len(self.weights)):
+            self.weights[i] -= self.learning_rate * np.dot(activations[i].T, deltas[i]) / m
+            self.biases[i] -= self.learning_rate * np.mean(deltas[i], axis=0, keepdims=True)
 
     def fit(self, X, y):
         """
