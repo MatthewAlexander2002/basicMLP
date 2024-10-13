@@ -9,21 +9,8 @@ class Layer:
         self.activation = activation
 
 class MultilayerPerceptron:
-    # def __init__(self, layer_sizes, learning_rate=0.01, n_iterations=1000):
-    #     # Initialize learning rate, iterations, and layer sizes.
-    #     # Initialize weights and biases for each layer randomly (use small values).
-    #     self.layer_sizes = layer_sizes
-    #     self.learning_rate = learning_rate
-    #     self.n_iterations = n_iterations
-
-    #     # Initialize weights and biases
-    #     self.weights = []
-    #     self.biases = []
-    #     for i in range(len(layer_sizes) - 1):
-    #         weight = np.random.randn(layer_sizes[i], layer_sizes[i + 1]) * 0.01
-    #         bias = np.zeros((1, layer_sizes[i + 1]))
-    #         self.weights.append(weight)
-    #         self.biases.append(bias)
+    #change to learning_rate from 0.01 to 0.025 to get much higher results, change after tuning testing
+    #higher iterations the higher accuracy but this seems to probably lead to overfitting
     def __init__(self, layers, learning_rate=0.01, n_iterations=1000):
         self.layers = layers
         self.learning_rate = learning_rate
@@ -34,6 +21,7 @@ class MultilayerPerceptron:
         self.weights = []
         self.biases = []
         for i in range(len(layer_sizes) - 1):
+            # test
             weight = np.random.randn(layer_sizes[i], layer_sizes[i + 1]) * 0.01
             bias = np.zeros((1, layer_sizes[i + 1]))
             self.weights.append(weight)
