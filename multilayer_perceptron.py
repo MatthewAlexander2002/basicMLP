@@ -11,7 +11,7 @@ class Layer:
 class MultilayerPerceptron:
     #change to learning_rate from 0.01 to 0.025 to get much higher results, change after tuning testing
     #higher iterations the higher accuracy but this seems to probably lead to overfitting
-    def __init__(self, layers, learning_rate=0.01, n_iterations=1000):
+    def __init__(self, layers, learning_rate=0.025, n_iterations=1000):
         self.layers = layers
         self.learning_rate = learning_rate
         self.n_iterations = n_iterations
