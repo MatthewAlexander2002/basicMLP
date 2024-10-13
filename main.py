@@ -22,10 +22,10 @@ if __name__ == "__main__":
 
     # Define the layers for the MLP
     layers = [
-        Layer(input_size=4, output_size=5, activation="relu"),
-        Layer(input_size=5, output_size=3, activation="softmax")  # Output layer with softmax
+        Layer(input_size=4, output_size=10, activation="relu"),
+        Layer(input_size=10, output_size=3, activation="softmax")  # Output layer with softmax
     ]
-
+    
     # Initialize the MLP with the defined layers
     mlp = MultilayerPerceptron(layers)
     print(f"MLP structure: {[{'input_size': layer.input_size, 'output_size': layer.output_size, 'activation': layer.activation} for layer in layers]}")
