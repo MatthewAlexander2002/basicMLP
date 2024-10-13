@@ -2,6 +2,7 @@ from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from custom_scaler import CustomScaler 
 from multilayer_perceptron import Layer, MultilayerPerceptron  
+from sklearn.metrics import f1_score
 import numpy as np
 
 if __name__ == "__main__":
@@ -29,10 +30,11 @@ if __name__ == "__main__":
     # Initialize the MLP with the defined layers
     mlp = MultilayerPerceptron(layers)
     print(f"MLP structure: {[{'input_size': layer.input_size, 'output_size': layer.output_size, 'activation': layer.activation} for layer in layers]}")
-
+    
     # Train the model using the `fit` function
     mlp.fit(X_train, y_train)
     print(f"First 5 training losses: {mlp.training_loss_[:5]}")
+    print(f"Last 5 training losses: {mlp.training_loss_[-5:]}")
 
     # Use the `predict` function to classify new data
     predictions = mlp.predict(X_test)
@@ -53,3 +55,6 @@ if __name__ == "__main__":
     # Calculate and print the accuracy
     accuracy = np.mean(class_labels == y_test)
     print(f"Accuracy: {accuracy * 100:.2f}%")
+    
+    test_f1 = f1_score(y_test, class_labels, average='weighted')
+    print(f"Testing F1 Score: {test_f1:.2f}")
