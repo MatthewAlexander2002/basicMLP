@@ -37,10 +37,18 @@ if __name__ == "__main__":
     # Use the `predict` function to classify new data
     predictions = mlp.predict(X_test)
     print(f"Predictions: {predictions}")
-
+    
     # Convert probabilities to class labels
     class_labels = np.argmax(predictions, axis=1)
-    print(f"Class labels: {class_labels}")
+    
+    for i, (prob, pred_label, true_label) in enumerate(zip(predictions, class_labels, y_test)):
+        print(f"Test instance {i+1}:")
+        print(f"  Predicted probabilities: {prob}")
+        print(f"  Predicted label: {pred_label}, True label: {true_label}\n")
+
+    # Print the predicted class labels and the true labels
+    print(f"Predicted labels: {class_labels}")
+    print(f"True labels:      {y_test}")
 
     # Calculate and print the accuracy
     accuracy = np.mean(class_labels == y_test)
